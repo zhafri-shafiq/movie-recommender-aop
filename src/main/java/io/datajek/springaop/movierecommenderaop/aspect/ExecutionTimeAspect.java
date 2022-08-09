@@ -13,7 +13,8 @@ public class ExecutionTimeAspect {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Around("execution(* io.datajek.springaop.movierecommenderaop..*.*(..))")
+    //@Around("execution(* io.datajek.springaop.movierecommenderaop..*.*(..))")
+    @Around("io.datajek.springaop.movierecommenderaop.aspect.JoinPointConfig.measureTimeAnnotation()")
     public Object calculateExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         //note start time
         long startTime = System.currentTimeMillis();
@@ -24,7 +25,7 @@ public class ExecutionTimeAspect {
         //time taken = end time - start time
         long timeTaken = System.currentTimeMillis() - startTime;
 
-        logger.info("Time taken by {} to complete execution is: {}", joinPoint, timeTaken);
+        logger.info("\n\n>>Time taken by {} \nto complete execution is: {}\n", joinPoint, timeTaken);
         return returnValue;
     }
 }
